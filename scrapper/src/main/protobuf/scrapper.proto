@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package scrapper;
+
+option java_package = "backend.academy.linktracker.grpc";
+option java_multiple_files = true;
+
+// ───── Общие типы ─────
+
+message LinkProto {
+    int64 id = 1;
+    string url = 2;
+    repeated string tags = 3;
+    repeated string filters = 4;
+}
+
+// ───── TgChat ─────
+
+message TgChatRequest {
+    int64 tg_chat_id = 1;
+}
+
+message TgChatResponse {
+    bool success = 1;
+}
+
+// ───── Links ─────
+
+message GetLinksRequest {
+    int64 tg_chat_id = 1;
+}
+
+message GetLinksResponse {
+    repeated LinkProto links = 1;
+    int32 size = 2;
+}
+
+message AddLinkRequest {
+    int64 tg_chat_id = 1;
+    string url = 2;
+    repeated string tags = 3;
+    repeated string filters = 4;
+}
+
+message RemoveLinkRequest {
+    int64 tg_chat_id = 1;
+    string url = 2;
+}
+
+message LinkResponse {
+    int64 id = 1;
+    string url = 2;
+    repeated string tags = 3;
+    repeated string filters = 4;
+}
+
+// ───── Сервисы ─────
+
+service TgChatService {
+    rpc RegisterChat(TgChatRequest) returns (TgChatResponse);
+    rpc DeleteChat(TgChatRequest) returns (TgChatResponse);
+}
+
+service LinksService {
+    rpc GetLinks(GetLinksRequest) returns (GetLinksResponse);
+    rpc AddLink(AddLinkRequest) returns (LinkResponse);
+    rpc RemoveLink(RemoveLinkRequest) returns (LinkResponse);
+}

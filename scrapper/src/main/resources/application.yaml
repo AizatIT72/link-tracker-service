@@ -1,0 +1,35 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: scrapper
+  grpc:
+    server:
+      port: 9090
+  datasource:
+    url: jdbc:postgresql://localhost:5435/linktrackerDB
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/master.xml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+
+app:
+  stackoverflow:
+    key: ${STACKOVERFLOW_KEY} # Use env variable. DO NOT KEEP TOKEN HERE
+    access-token: ${STACKOVERFLOW_ACCESS_KEY} # Use env variable. DO NOT KEEP TOKEN HERE
+  github:
+    token: ${GITHUB_TOKEN} # Use env variable. DO NOT KEEP TOKEN HERE
+  bot:
+    base-url: http://localhost:8080
+  scheduler:
+    interval: 60000
+    preview_length: 200
+  access-type: SQL

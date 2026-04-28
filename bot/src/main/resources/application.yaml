@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bot
+  grpc:
+    client:
+      scrapper:
+        address: static://localhost:9090
+        negotiation-type: plaintext
+
+app:
+  telegram:
+    url: https://api.telegram.org/bot
+    token: ${TELEGRAM_TOKEN} # Use env variable. DO NOT KEEP TOKEN HERE
+    update-listener-sleep: 1s
+    debug: false
+  scrapper:
+    base-url: http://localhost:8081
+    grpc-host: localhost
+    grpc-port: 9090
